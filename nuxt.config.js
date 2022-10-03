@@ -40,21 +40,73 @@ export default {
         '@nuxtjs/axios',
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
+        '@nuxtjs/auth-next'
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
         // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
         baseURL: '/',
+        proxy: true
     },
-
+    proxy: {
+    },
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
         manifest: {
             lang: 'pt-br',
         },
     },
-
+    auth: {
+      rewriteRedirects: true,
+        redirect: {
+            login: '/',
+            logout: '/logout',
+            home: '/painel'
+          },
+          localStorage: false,
+          cookie: {
+            prefix: 'auth.',
+            options: {
+              path: '/'
+            },
+            cookie: {
+              name: 'XSRF-TOKEN',
+            },
+          },
+        strategies: {
+          local: {
+            token: {
+              property: 'token',
+              global: true,
+               required: true,
+               type: 'Bearer'
+            },
+            user: {
+              property: 'user',
+            },
+            endpoints: {
+              login: { url: 'back/api/login', method: 'post' },
+              logout: { url: 'back/api/logout', method: 'post' },
+              user: { url: 'back/api/user', method: 'get', }
+            }
+          },
+          'laravelPassport': {
+            provider: 'laravel/passport',
+            endpoints: {
+              login: { url: 'http://localhost:8000/api/login', method: 'post' },
+              logout: { url: 'http://localhost:8000/api/logout', method: 'post' },
+              token: 'http://localhost:8000/oauth/token',
+              user: { url: 'http://localhost:8000/api/user', method: 'get', },
+              userInfo: 'http://localhost:8000/api/user',
+            },
+            grantType: 'password',
+            url: 'http://localhost:8000',
+            clientId: '2',
+            clientSecret: 'fydun9wm2dVSlmgfD1J1FHcaebOtISzYut83JYMf'
+          },
+        },
+        },
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
     vuetify: {
         customVariables: ['~/assets/variables.scss'],
@@ -69,7 +121,7 @@ export default {
                     info: colors.teal.lighten1,
                     warning: colors.amber.base,
                     error: colors.deepOrange.accent4,
-                    success: colors.green.accent3,
+                    success: colors.green,
                 },
                 light: {
                     primary: colors.blue.darken2,
@@ -78,12 +130,15 @@ export default {
                     info: colors.teal.lighten1,
                     warning: colors.amber.base,
                     error: colors.deepOrange.accent4,
-                    success: colors.green.accent2,
+                    success: colors.green,
                 },
             },
         },
     },
-
+    router: {
+        middleware: ['auth']
+      }, 
+      
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
         postcss: {

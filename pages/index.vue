@@ -1,13 +1,15 @@
 <template>
   <v-container fluid >
-
-    <h1 class="font-weight-regular"><v-icon size="25" color="cyan darken-4 ">mdi-view-dashboard-outline</v-icon> Dashboard</h1>
+    <Login />
   </v-container>
 </template>
 
 <script>
+ import Login from '~/components/auth/login.vue'; 
 export default {
-  name: 'IndexPage',
-  layout: 'main',
+  name: "IndexPage",
+   components: { Login }, 
+  layout: "main",
+  auth: false
 }
 </script>

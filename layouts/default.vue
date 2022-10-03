@@ -2,7 +2,7 @@
   <v-app light>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant.sync="miniVariant"
+      :mini-variant="miniVariant"
       mini-variant-width="70px"
       app
       fixed
@@ -13,11 +13,11 @@
     >
       <v-list>
         <v-list-item-group  active-class="blue darken-2 text--white" >
-          <v-list-item class="px-2" to="/user">
+          <v-list-item class="px-2" to="/painel/user">
             <v-list-item-avatar>
-              <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+              <v-img :src="require('~/assets/img/download.png')"></v-img>
             </v-list-item-avatar>
-            <v-list-item-title class="text-[#EEEEEE]">John Leider</v-list-item-title>
+            <v-list-item-title class="text-[#EEEEEE]">{{$auth.user.user.name}}</v-list-item-title>
           </v-list-item>
           <v-divider class="bg-[#616161]"></v-divider>
           <template v-for="item in items">
@@ -98,7 +98,7 @@ export default {
   name: 'DashboardLayout',
   data() {
     return {
-      drawer: true,
+      drawer: false,
       items: [
         {
           id:0,
@@ -110,7 +110,7 @@ export default {
           id:1,
           icon: 'mdi-food-outline',
           title: 'Produtos',
-          group: '/produtos',
+          group: '/painel/produtos',
           active: true,
           sub:
           [
@@ -132,25 +132,26 @@ export default {
               title: 'Receitas',
               to: '/receitas/',
             },
-            {
+            
+          ]
+        },
+        {
               id:'sub-3',
               icon: 'mdi-label-multiple-outline',
               title: 'Categorias',
-              to: '/categorias/',
+              to: '/painel/categorias/',
             },
-          ]
-        },
         {
           id:2,
           icon: 'mdi-factory',
           title: 'Fornecedores',
-          to: '/fornecedores/',
+          to: '/painel/fornecedores/',
         },
         {
           id:3,
           icon: 'mdi-bike-fast',
           title: 'Delivery',
-          to: '/delivery/',
+          to: '/painel/delivery/',
         },
         
         
@@ -158,25 +159,25 @@ export default {
           id:4,
           icon: 'mdi-contacts-outline',
           title: 'Clientes',
-          to: '/clientes/',
+          to: '/painel/clientes/',
         },
         {
           id:5,
           icon: 'mdi-basket-outline',
           title: 'Vendas',
-          to: '/vendas/',
+          to: '/painel/vendas/',
         },
         {
           id:6,
           icon: 'mdi-room-service-outline',
           title: 'Pedidos',
-          to: '/pedidos/',
+          to: '/painel/pedidos/',
         },
         {
           id:7,
           icon: 'mdi-store-settings-outline',
           title: 'Empresa',
-          to: '/empresa/',
+          to: '/painel/empresa/',
         },
         {
           id:8,
@@ -189,6 +190,7 @@ export default {
       title: 'Dashboard',
     }
   },
+
 }
 </script>
 <style lang="scss">
