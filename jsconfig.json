@@ -1,14 +1,13 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"],
-      "~~/*": ["./*"],
-      "@@/*": ["./*"]
-    },
-    "jsx":"preserve"
-  },
-  "exclude": ["node_modules", ".nuxt", "dist",".git", ".github", ".vscode"],
-  
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./*"],
+			"@/*": ["./*"],
+			"~~/*": ["./*"],
+			"@@/*": ["./*"]
+		},
+		"jsx": "preserve"
+	},
+	"exclude": ["node_modules", ".nuxt", "dist", ".git", ".github", ".vscode"]
 }
