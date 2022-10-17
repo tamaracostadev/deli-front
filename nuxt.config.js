@@ -20,7 +20,7 @@ export default {
       ],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: [],
+    plugins: ['~/plugins/toast.js'],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
@@ -40,14 +40,19 @@ export default {
         '@nuxtjs/axios',
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
-        '@nuxtjs/auth-next'
+        '@nuxtjs/auth-next',
+        'vue-sweetalert2/nuxt'
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
         // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-        baseURL: '/',
+        baseURL: process.env.API_URL || '/',
         proxy: true
+    },
+    env:{
+        apiUrl: process.env.API_URL || 'http://localhost:3000',
+        authUrl: process.env.AUTH_URL || 'http://localhost:3000'
     },
     proxy: {
     },
@@ -94,14 +99,14 @@ export default {
           'laravelPassport': {
             provider: 'laravel/passport',
             endpoints: {
-              login: { url: 'http://localhost:8000/api/login', method: 'post' },
-              logout: { url: 'http://localhost:8000/api/logout', method: 'post' },
-              token: 'http://localhost:8000/oauth/token',
-              user: { url: 'http://localhost:8000/api/user', method: 'get', },
-              userInfo: 'http://localhost:8000/api/user',
+              login: { url: process.env.API_URL+'/login', method: 'post' },
+              logout: { url: process.env.API_URL+'/logout', method: 'post' },
+              token: process.env.AUTH_URL+'/oauth/token',
+              user: { url: process.env.API_URL+'/user', method: 'get', },
+              userInfo: process.env.API_URL+'/user',
             },
             grantType: 'password',
-            url: 'http://localhost:8000',
+            url: process.env.AUTH_URL,
             clientId: '2',
             clientSecret: 'fydun9wm2dVSlmgfD1J1FHcaebOtISzYut83JYMf'
           },
@@ -148,4 +153,22 @@ export default {
             },
           }, 
     },
+    watchers: {
+      chokidar: {
+        ignored: [
+          'pages/docs',
+          'assets/json/**/*.json',
+          'node_modules',
+          '.git','.vscode'
+        ]
+      },
+      webpack: {
+        ignored: [
+          'pages/docs',
+          'assets/json/**/*.json',
+          'node_modules',
+          '.git','.vscode'
+        ]
+      }
+    }
 }
