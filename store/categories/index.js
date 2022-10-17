@@ -43,7 +43,7 @@ export const actions = {
             commit('ADD_CATEGORY', newCategory.category)
             return newCategory
         }catch(error){
-            console.log(error)
+            return error
         }
     },
     async deleteCategory({ commit }, category) {
@@ -56,7 +56,7 @@ export const actions = {
             commit('DELETE_CATEGORY', category)
             return deletedCategory
         }catch(error){
-            console.log(error)
+            return error
         }
     },
     async updateCategory({ commit }, category) {
@@ -69,7 +69,7 @@ export const actions = {
             commit('UPDATE_CATEGORY', updatedCategory.category)
             return updatedCategory
         }catch(error){
-            console.log(error)
+            return error
         }
         
         
