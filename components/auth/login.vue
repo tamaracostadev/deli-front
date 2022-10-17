@@ -26,7 +26,7 @@
         </v-card-text>
         <v-card-actions  class="d-flex justify-center">
             <v-btn class="w-[140px] mx-2" color="success" @click="logar()" >Entrar</v-btn>
-            <v-btn class="w-[140px] mx-2" color="primary">Cadastre-se</v-btn>
+            <v-btn class="w-[140px] mx-2" color="primary" @click="$emit('show-register')">Cadastre-se</v-btn>
         </v-card-actions>
     </v-card>
   </v-container>
@@ -35,6 +35,7 @@
 <script>
 export default {
     name: 'Login',
+    emits:['show-register'],
     data(){
         return{
             show: false,
@@ -60,7 +61,7 @@ export default {
                 this.$router.push(redirect)  
             })
 
-        }
+        },
     },
 }
 </script>
