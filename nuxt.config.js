@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors';
+import pt from 'vuetify/src/locale/pt';
 
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
@@ -21,7 +22,7 @@ export default {
 	css: ['@/assets/css/main.css'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: ['~/plugins/toast.js'],
+	plugins: ['~/plugins/toast.js', '~/plugins/vmask.js'],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -121,6 +122,7 @@ export default {
 	// Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
 	vuetify: {
 		customVariables: ['~/assets/variables.scss'],
+		lang: { locales: { pt }, current: 'pt' },
 		theme: {
 			light: true,
 			dark: false,
