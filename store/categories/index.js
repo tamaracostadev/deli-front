@@ -95,3 +95,12 @@ export const actions = {
 		}
 	},
 };
+
+export const getters = {
+	getInputCategories(state) {
+		return state.input;
+	},
+	getProductCategories(state) {
+		return state.product;
+	}
+};

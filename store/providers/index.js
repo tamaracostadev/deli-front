@@ -89,4 +89,12 @@ export const getters = {
 	getProviders(state) {
 		return state.providers;
 	},
+	getProvidersSelect(state) {
+		const select = {text:[], value:[]};
+		state.providers.forEach((provider) => {
+			select.text.push(provider.provider);
+			select.value.push(provider.id);
+		});
+		return select;
+	}
 };
