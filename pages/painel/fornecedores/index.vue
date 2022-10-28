@@ -9,7 +9,7 @@
 					Fornecedores
 				</h1>
 			</v-toolbar>
-			<v-dialog v-model="dialog" max-width="500px">
+			<v-dialog v-model="dialog" max-width="600px">
 				<template #activator="{ on, attrs }">
 					<v-btn
 						color="success"
@@ -28,7 +28,7 @@
 
 					<v-card-text>
 						<v-container>
-							<v-row>
+							<v-row dense>
 								<v-col cols="12">
 									<v-text-field
 										v-model="editedItem.provider"

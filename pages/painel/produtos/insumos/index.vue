@@ -28,7 +28,7 @@
 
 					<v-card-text>
 						<v-container>
-							<v-row>
+							<v-row dense>
 								<v-col cols="12">
 									<v-text-field
 										v-model="editedItem.item"
@@ -49,11 +49,7 @@
 										mandatory
 										row
 									>
-										<v-radio label="Unidade" value="un"></v-radio>
-										<v-radio label="Quilo" value="kg"></v-radio>
-										<v-radio label="Grama" value="g"></v-radio>
-										<v-radio label="Litro" value="l"></v-radio>
-										<v-radio label="Mililitro" value="ml"></v-radio>
+										<v-radio v-for="medida in medidas" :key="medida.id"  :label="medida.description"  :value="medida.name" ></v-radio>
 								</v-radio-group>
 								</v-col>
 								<v-col cols="12">
@@ -178,6 +174,7 @@ export default {
                     sortable: false,
                 },
             ],
+			
             icon: "success",
             loading: false,
 			loadingtbl: true,
@@ -211,7 +208,8 @@ export default {
         };
     },
     computed: {
-        ...mapGetters({
+		...mapGetters({
+			medidas: 'products/recipes/getMeasures',
 			insumos: "products/inputs/getInputs",
             fornecedores: "providers/getProviders",
             categorias: "categories/getInputCategories",
