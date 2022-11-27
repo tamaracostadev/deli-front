@@ -17,7 +17,7 @@
 					<v-list-item class="px-2" to="/painel/user">
 						<v-list-item-avatar>
 							<v-img
-								:src="require('~/assets/img/download.png')"
+								:src="require('~/assets/img/profile/download.png')"
 							></v-img>
 						</v-list-item-avatar>
 						<v-list-item-title class="text-[#EEEEEE]">{{
@@ -96,9 +96,20 @@
 		</v-navigation-drawer>
 		<v-app-bar color="primary white--text" clipped-left app>
 			<v-app-bar-nav-icon color="white" @click.stop="drawer = !drawer" />
+			
 			<v-toolbar-title v-text="title" />
 
 			<v-spacer />
+			<v-btn icon>
+				<v-icon>mdi-magnify</v-icon>
+			</v-btn>
+			<v-btn icon>
+				<v-icon>mdi-bell</v-icon>
+			</v-btn>
+			<v-btn icon>
+				<v-icon>mdi-account</v-icon>
+			</v-btn>
+			
 			<v-btn
 				icon
 				@click.stop="$vuetify.theme.dark = !$vuetify.theme.dark"
@@ -175,12 +186,12 @@ export default {
 					title: 'Fornecedores',
 					to: '/painel/fornecedores/',
 				},
-				{
+				/* {
 					id: 3,
 					icon: 'mdi-bike-fast',
 					title: 'Delivery',
 					to: '/painel/delivery/',
-				},
+				}, */
 
 				{
 					id: 4,
@@ -190,14 +201,41 @@ export default {
 				},
 				{
 					id: 5,
-					icon: 'mdi-basket-outline',
-					title: 'Vendas',
-					to: '/painel/vendas/',
+					icon: 'mdi-food-outline',
+					title: 'Financeiro',
+					group: '/painel/financeiro',
+					active: true,
+					sub: [
+						{
+							id: 'sub-0',
+							icon: 'mdi-basket-outline',
+							title: 'Vendas',
+							to: '/vendas/',
+						},
+						{
+							id: 'sub-1',
+							icon: 'mdi-coffee-maker-check-outline',
+							title: 'Custos Fixos',
+							to: '/custofixo/',
+						},
+						{
+							id: 'sub-2',
+							icon: 'mdi-notebook-check-outline',
+							title: 'Custos Variáveis',
+							to: '/custovariavel/',
+						},
+						{
+							id: 'sub-2',
+							icon: 'mdi-notebook-check-outline',
+							title: 'Depreciação',
+							to: '/depreciacao/',
+						},
+					],
 				},
 				{
 					id: 6,
 					icon: 'mdi-room-service-outline',
-					title: 'Pedidos',
+					title: 'PDV',
 					to: '/painel/pedidos/',
 				},
 				{

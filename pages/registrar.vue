@@ -49,7 +49,7 @@
 				<v-btn
 					class="w-[200px] mx-2"
 					color="primary"
-					@click="$emit('show-login')"
+					@click="goToLogin"
 					>Já tenho uma conta</v-btn
 				>
 			</v-card-actions>
@@ -60,7 +60,8 @@
 <script>
 export default {
 	name: 'Registrar',
-	emits: ['show-login'],
+	auth: false,
+	layout: 'main',
 	data: () => ({
 		valid: true,
 		name: '',
@@ -92,6 +93,12 @@ export default {
 		showPassword: false,
 		showConfirmPassword: false,
 	}),
+	methods: {
+		goToLogin() {
+			this.$router.push('/login');
+		},
+	},
+
 };
 </script>
 

@@ -22,7 +22,7 @@ export default {
 	css: ['@/assets/css/main.css'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: ['~/plugins/toast.js', '~/plugins/vmask.js'],
+	plugins: ['~/plugins/toast.js', '~/plugins/vmask.js',{src: '~/plugins/chart.js', mode: 'client'}],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
@@ -34,6 +34,7 @@ export default {
 		// https://go.nuxtjs.dev/vuetify
 		'@nuxtjs/vuetify',
 		'@nuxt/postcss8',
+		'@nuxtjs/google-fonts',
 	],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
@@ -119,8 +120,22 @@ export default {
 			},
 		},
 	},
+	googleFonts: {
+		download: true,
+		families: {
+			Roboto: true,
+			'Nunito+Sans': true,
+			Lato: [100, 300],
+		  }
+	  },
 	// Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
 	vuetify: {
+		treeShake: true,
+		defaultAssets: {
+			font: {
+				family: 'Nunito Sans',
+			},
+		},
 		customVariables: ['~/assets/variables.scss'],
 		lang: { locales: { pt }, current: 'pt' },
 		theme: {
@@ -128,18 +143,18 @@ export default {
 			dark: false,
 			themes: {
 				dark: {
-					primary: colors.blue.darken2,
-					accent: colors.blue.darken2,
-					secondary: colors.blueGrey.darken4,
+					primary: '#2F2E41',
+					accent: '#ffe1e1',
+					secondary: '#FF4117',
 					info: colors.teal.lighten1,
 					warning: colors.amber.base,
 					error: colors.deepOrange.accent4,
 					success: colors.green,
 				},
 				light: {
-					primary: colors.blue.darken2,
-					accent: colors.blue.darken3,
-					secondary: colors.blueGrey.darken4,
+					primary: '#2F2E41',
+					accent: '#ffe1e1',
+					secondary: '#FF4117',
 					info: colors.teal.lighten1,
 					warning: colors.amber.base,
 					error: colors.deepOrange.accent4,

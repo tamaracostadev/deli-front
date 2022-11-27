@@ -7,7 +7,14 @@
 			"~~/*": ["./*"],
 			"@@/*": ["./*"]
 		},
-		"jsx": "preserve"
+		"jsx": "preserve",
+		
+	},
+	"vueCompilerOptions": {
+			"extensions": [
+			  ".vue"
+			]
+		  
 	},
 	"exclude": ["node_modules", ".nuxt", "dist", ".git", ".github", ".vscode"]
 }
