@@ -14,7 +14,7 @@
 						<div class="mt-14">
 							<h1 class="text-4xl font-semibold">Gaste seu tempo no que importa!</h1>
 							<p class="text-xl mt-3">Tenha o cadastro dos insumos e fichas técnicas em um só lugar.
-								Saiba rapidamente o preço de custo dos seus produtos, 
+								Saiba rapidamente o preço de custo dos seus produtos,
 								além de sugestão de preço mínimo de venda para ter lucro no seu negócio.
 							</p>
 							<div class="d-flex justify-center">
@@ -22,7 +22,7 @@
 									color="secondary"
 									x-large
 									class="mt-8"
-									@click="register = !register"
+									@click="register()"
 								>Comece gratuitamente</v-btn>
 							</div>
 						</div>
@@ -49,7 +49,7 @@
 					color="secondary"
 					large
 					class="my-3"
-					@click="register = !register"
+					@click="register()"
 				>Aproveite seu ERP grátis</v-btn>
 			</div>
 		</v-container>
@@ -94,13 +94,13 @@
 							</v-card-text>
 							<v-card-actions class="d-flex justify-center mb-4">
 								<v-btn
-									@click="register = !register"
+									@click="register()"
 								>Em breve</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-col>
 					<v-col cols="4" md="4" class="py-10 d-flex justify-center align-start">
-						<v-card 
+						<v-card
 							elevation="5"
 							max-width="300"
 						>
@@ -140,13 +140,13 @@
 							<v-card-actions class="d-flex justify-center mb-4">
 								<v-btn
 									color="secondary"
-									@click="register = !register"
+									@click="register()"
 								>Comece gratuitamente</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-col>
 					<v-col cols="4" md="4" class="py-10 d-flex justify-center align-end">
-						<v-card 
+						<v-card
 							elevation="5"
 							disabled
 							max-width="300"
@@ -178,7 +178,7 @@
 							</v-card-text>
 							<v-card-actions class="d-flex justify-center mb-4">
 								<v-btn
-									@click="register = !register"
+									@click="register()"
 								>Em breve</v-btn>
 							</v-card-actions>
 						</v-card>
@@ -198,8 +198,13 @@ export default {
 	auth: false,
 	data() {
 		return {
-			register: false,
+			//
 		};
+	},
+	methods: {
+		register() {
+			this.$router.push('/register');
+		},
 	},
 };
 </script>
