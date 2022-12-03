@@ -45,7 +45,7 @@
 				</v-form>
 			</v-card-text>
 			<v-card-actions class="d-flex justify-center">
-				<v-btn class="w-[140px] mx-2" color="success">Cadastrar</v-btn>
+				<v-btn class="w-[140px] mx-2" color="success" @click="registrar()">Cadastrar</v-btn>
 				<v-btn
 					class="w-[200px] mx-2"
 					color="primary"
@@ -68,8 +68,8 @@ export default {
 		nameRules: [
 			(v) => !!v || 'Nome é obrigatório',
 			(v) =>
-				(v && v.length <= 10) ||
-				'Nome deve ter menos que 10 caracteres',
+				(v && v.length >= 5) ||
+				'Nome deve ter mais que 5 caracteres',
 		],
 		email: '',
 		emailRules: [
@@ -86,17 +86,48 @@ export default {
 		confirmPassword: '',
 		confirmPasswordRules: [
 			(v) => !!v || 'A confirmação de senha é obrigatória',
-			(v) =>
-				(v && v.length >= 6 && v === this.password) ||
-				'A confirmação de senha deve ser igual a senha',
 		],
 		showPassword: false,
 		showConfirmPassword: false,
 	}),
+	mounted() {
+		this.confirmPasswordRules = this.confirmPasswordRules.concat(
+			(v) =>
+				v === this.password || 'As senhas devem ser iguais'
+		);
+	},
 	methods: {
 		goToLogin() {
 			this.$router.push('/login');
 		},
+		async registrar() {
+			await this.$axios.post(process.env.apiUrl +'/register', {
+				name: this.name,
+				email: this.email,
+				password: this.password,
+				password_confirmation: this.confirmPassword
+			}).then(async (response) => {
+				if(response.data.token){
+					await this.$auth
+				.loginWith('laravelPassport', {
+					data: {
+						username: this.email,
+						password: this.password,
+					},
+				})
+				.then((response) => {
+					let redirect = '/painel';
+					if (this.$auth.$state.redirect) {
+						redirect = this.$auth.$state.redirect;
+					}
+					this.$router.push(redirect);
+				});
+				}
+			}).catch((error) => {
+				console.log(error);
+			});
+		},
+
 	},
 
 };

@@ -1,5 +1,5 @@
 <template>
-	<v-app light>
+	<v-app dark>
 		<v-navigation-drawer
 			v-model="drawer"
 			:mini-variant="miniVariant"
@@ -7,7 +7,7 @@
 			app
 			fixed
 			expand-on-hover
-			color="secondary"
+			color="primary"
 			class="cscroll full-height"
 			:style="`margin-top: ${$vuetify.application.top}px`"
 			:value="true"
@@ -91,12 +91,27 @@
 							</v-list-item>
 						</v-list-group>
 					</template>
+						<v-list-item
+							@click="logout()"
+
+						>
+							<v-list-item-action>
+								<v-icon color="grey lighten-1">
+									mdi-logout
+								</v-icon>
+							</v-list-item-action>
+							<v-list-item-content>
+								<v-list-item-title
+									class="text-[#EEEEEE]"
+								>Sair</v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>
 				</v-list-item-group>
 			</v-list>
 		</v-navigation-drawer>
 		<v-app-bar color="primary white--text" clipped-left app>
 			<v-app-bar-nav-icon color="white" @click.stop="drawer = !drawer" />
-			
+
 			<v-toolbar-title v-text="title" />
 
 			<v-spacer />
@@ -109,7 +124,7 @@
 			<v-btn icon>
 				<v-icon>mdi-account</v-icon>
 			</v-btn>
-			
+
 			<v-btn
 				icon
 				@click.stop="$vuetify.theme.dark = !$vuetify.theme.dark"
@@ -193,12 +208,12 @@ export default {
 					to: '/painel/delivery/',
 				}, */
 
-				{
+				/* {
 					id: 4,
 					icon: 'mdi-contacts-outline',
 					title: 'Clientes',
 					to: '/painel/clientes/',
-				},
+				}, */
 				{
 					id: 5,
 					icon: 'mdi-food-outline',
@@ -224,36 +239,45 @@ export default {
 							title: 'Custos Variáveis',
 							to: '/custovariavel/',
 						},
-						{
+						/* {
 							id: 'sub-2',
 							icon: 'mdi-notebook-check-outline',
 							title: 'Depreciação',
 							to: '/depreciacao/',
-						},
+						}, */
 					],
 				},
-				{
+				/* {
 					id: 6,
 					icon: 'mdi-room-service-outline',
 					title: 'PDV',
 					to: '/painel/pedidos/',
-				},
+				}, */
 				{
 					id: 7,
 					icon: 'mdi-store-settings-outline',
 					title: 'Empresa',
 					to: '/painel/empresa/',
 				},
-				{
+				/*	{
 					id: 8,
 					icon: 'mdi-power',
 					title: 'Sair',
 					to: '/logout/',
-				},
+				},	*/
 			],
 			miniVariant: true,
 			title: 'Dashboard',
 		};
+	},
+	methods: {
+		logout() {
+			// nuxt auth logout
+			this.$auth.logout();
+
+
+
+		},
 	},
 };
 </script>
