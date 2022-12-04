@@ -1,5 +1,27 @@
 import colors from 'vuetify/es5/util/colors';
 import pt from 'vuetify/src/locale/pt';
+var fs = require('fs');
+var path = require('path');
+
+let ENV_DEV = true;
+
+//Development Environment
+let port = 3000;
+let host = 'localhost';
+let https = false;
+
+//Production Environment
+if(ENV_DEV==false)
+{
+	port = 80; // make sure this port is open on your server you can do that via WHM or talk to you hosting company
+	host = 'delimenu.h-br.com';
+		https =  {
+			key: fs.readFileSync(path.resolve(__dirname,
+			'./../../ssl/keys/<ssl-key-file-name>.key')),
+			cert: fs.readFileSync(path.resolve(__dirname,
+			'./../../ssl/certs/<ssl-crt-file-name>.crt'))
+		};
+}
 
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
