@@ -117,7 +117,7 @@ export default {
 				grantType: 'password',
 				url: "https://deli-backe.herokuapp.com",
 				clientId: '2',
-				clientSecret: '7mXSkCzj5q7VuAPKoC7Io0JopK4wSFwYlfCsr1gb',
+				clientSecret: '3y5kd3NqQhGcDJHYYMeKMyC9BazybvNuJfoKUpGq',
 			},
 		},
 	},
