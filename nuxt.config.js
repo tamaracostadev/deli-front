@@ -1,8 +1,6 @@
 import colors from 'vuetify/es5/util/colors';
 import pt from 'vuetify/src/locale/pt';
 
-const AUTH_URL = "https://deli-backe.herokuapp.com"
-const API_URL = "https://deli-backe.herokuapp.com/api"
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -52,12 +50,12 @@ export default {
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
 		// Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-		baseURL: API_URL || '/',
+		baseURL: process.env.API_URL || '/',
 		proxy: true,
 	},
 	env: {
-		apiUrl: API_URL || 'http://localhost:3000',
-		authUrl: AUTH_URL || 'http://localhost:3000',
+		apiUrl: process.env.API_URL || 'http://localhost:3000',
+		authUrl: process.env.AUTH_URL || 'http://localhost:3000',
 	},
 	proxy: {},
 	// PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -104,19 +102,19 @@ export default {
 				provider: 'laravel/passport',
 				endpoints: {
 					login: {
-						url: API_URL + '/login',
+						url: process.env.API_URL + '/login',
 						method: 'post',
 					},
 					logout: {
-						url: API_URL + '/logout',
+						url: process.env.API_URL + '/logout',
 						method: 'post',
 					},
-					token: AUTH_URL + '/oauth/token',
-					user: { url: API_URL + '/user', method: 'get' },
-					userInfo: API_URL + '/user',
+					token: process.env.AUTH_URL + '/oauth/token',
+					user: { url: process.env.API_URL + '/user', method: 'get' },
+					userInfo: process.env.API_URL + '/user',
 				},
 				grantType: 'password',
-				url: AUTH_URL,
+				url: process.env.AUTH_URL,
 				clientId: '2',
 				clientSecret: 'fydun9wm2dVSlmgfD1J1FHcaebOtISzYut83JYMf',
 			},
