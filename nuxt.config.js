@@ -116,7 +116,7 @@ export default {
 				grantType: 'password',
 				url: process.env.AUTH_URL,
 				clientId: '2',
-				clientSecret: 'fydun9wm2dVSlmgfD1J1FHcaebOtISzYut83JYMf',
+				clientSecret: '7mXSkCzj5q7VuAPKoC7Io0JopK4wSFwYlfCsr1gb',
 			},
 		},
 	},
