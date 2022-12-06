@@ -1,5 +1,7 @@
 import colors from 'vuetify/es5/util/colors';
 import pt from 'vuetify/src/locale/pt';
+// const API_URL = "http://localhost:8000/api";
+// const AUTH_URL = "http://localhost:8000";
 const API_URL = "https://deli-backe.herokuapp.com/api";
 const AUTH_URL = "https://deli-backe.herokuapp.com";
 export default {
@@ -77,47 +79,33 @@ export default {
 			prefix: 'auth.',
 			options: {
 				path: '/',
+				expires: 7,
 			},
 			cookie: {
 				name: 'XSRF-TOKEN',
 			},
 		},
 		strategies: {
-			local: {
-				token: {
-					property: 'token',
-					global: true,
-					required: true,
-					type: 'Bearer',
-				},
-				user: {
-					property: 'user',
-				},
-				endpoints: {
-					login: { url: 'back/api/login', method: 'post' },
-					logout: { url: 'back/api/logout', method: 'post' },
-					user: { url: 'back/api/user', method: 'get' },
-				},
-			},
+
 			laravelPassport: {
 				provider: 'laravel/passport',
 				endpoints: {
 					login: {
-						url: API_URL + '/login',
+						url: '/api/login',
 						method: 'post',
 					},
 					logout: {
-						url: API_URL + '/logout',
+						url: '/api/logout',
 						method: 'post',
 					},
-					token: 'https://deli-backe.herokuapp.com/oauth/token',
-					user: { url: API_URL + '/user', method: 'get' },
-					userInfo: API_URL + '/user',
+					token: AUTH_URL+'/oauth/token',
+					user: { url: '/api/user', method: 'get' },
+					userInfo: '/api/user',
 				},
 				grantType: 'password',
-				url: "https://deli-backe.herokuapp.com",
+				url: AUTH_URL,
 				clientId: '2',
-				clientSecret: '3y5kd3NqQhGcDJHYYMeKMyC9BazybvNuJfoKUpGq',
+				clientSecret: 'UMAdy14FCE0Fk1jMSXnywxXqPeXdtXzENBaZ5RqZ',
 			},
 		},
 	},

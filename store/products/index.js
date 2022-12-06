@@ -11,16 +11,17 @@ export const mutations = {
         state.ingredients = products.ingredients;
     },
     ADD_PRODUCT(state, product) {
-        state.products.push(...product.product);
+        state.products.push(...product.products);
         state.ingredients.push(...product.ingredients);
 
     },
     UPDATE_PRODUCT(state, product) {
+		const productId = product.products[0].id;
         const index = state.products.findIndex(
-            (item) => item.id === product.id
+            item => item.id === productId
         );
-        state.products.splice(index, 1, ...product.product);
-        state.ingredients = state.ingredients.filter(item => item.id_input !== product.id);
+        state.products.splice(index, 1, ...product.products);
+        state.ingredients = state.ingredients.filter(item => item.id_input !== productId);
         state.ingredients.push(...product.ingredients);
     },
     DELETE_PRODUCT(state, product) {
@@ -47,7 +48,7 @@ export const actions = {
                     return err.response.data;
                 });
             if (newProduct.data.errors) {
-                return newProduct;
+                return newProduct.data;
             }
             commit('ADD_PRODUCT', newProduct.data);
             return newProduct.data;
@@ -66,7 +67,7 @@ export const actions = {
                     return err.response.data;
                 });
             if (updatedProduct.data.errors) {
-                return updatedProduct;
+                return updatedProduct.data;
             }
             commit('UPDATE_PRODUCT', updatedProduct.data);
             return updatedProduct.data;
@@ -84,7 +85,7 @@ export const actions = {
                     return err.response.data;
                 });
             if (deletedProduct.data.errors) {
-                return deletedProduct;
+                return deletedProduct.data;
             }
             commit('DELETE_PRODUCT', product);
             return deletedProduct.data;

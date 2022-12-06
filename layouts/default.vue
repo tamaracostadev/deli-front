@@ -17,11 +17,11 @@
 					<v-list-item class="px-2" to="/painel/user">
 						<v-list-item-avatar>
 							<v-img
-								:src="require('~/assets/img/profile/download.png')"
+								:src="'https://dummyimage.com/200/d6d6d6/737373.png&text='+($auth.user.user? $auth.user.user.name.substring(0,1) : 'U')"
 							></v-img>
 						</v-list-item-avatar>
 						<v-list-item-title class="text-[#EEEEEE]">{{
-							$auth.user.user.name
+							$auth.user.user? $auth.user.user.name : 'Usuário'
 						}}</v-list-item-title>
 					</v-list-item>
 					<v-divider class="bg-[#616161]"></v-divider>
@@ -253,12 +253,12 @@ export default {
 					title: 'PDV',
 					to: '/painel/pedidos/',
 				}, */
-				{
+				/* {
 					id: 7,
 					icon: 'mdi-store-settings-outline',
 					title: 'Empresa',
 					to: '/painel/empresa/',
-				},
+				}, */
 				/*	{
 					id: 8,
 					icon: 'mdi-power',
@@ -274,9 +274,11 @@ export default {
 		logout() {
 			// nuxt auth logout
 			this.$auth.logout();
-
-
-
+			// get cookies, set expires to 0, set cookies
+			Object.entries(this.$auth.$storage.getCookies()).forEach(([key, value]) => {
+				this.$auth.$storage.removeCookie(key.replaceAll('auth.',''),{prefix: 'auth.'})
+			})
+			// this.$router.push('/');
 		},
 	},
 };

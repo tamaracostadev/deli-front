@@ -8,7 +8,6 @@ export const state = () => {
             {id:3, name:'ml', description:'Mililitro'},
             {id:4, name:'l', description:'Litro'},
             {id:5, name:'un', description:'Unidade'},
-
         ]
     };
 };
@@ -111,5 +110,6 @@ export const getters = {
     },
     getIngredients(state) {
         return state.ingredients;
-    }
+    },
+
 };

@@ -31,7 +31,7 @@
 							<v-row dense>
 								<v-col cols="12">
 									<v-text-field
-										v-model="editedItem.item"
+										v-model="editedItem.product"
 										label="Nome Produto"
 									></v-text-field>
 								</v-col>
@@ -66,11 +66,11 @@
 									value="complemento"
 									></v-radio>
 									</v-radio-group>
-									
+
 								</v-col>
 								<v-col cols="6">
 									<vuetify-money
-										v-model="editedItem.sellPrice"
+										v-model="editedItem.sell"
 										label="Preço de Venda"
 										:options="options"
 										@keyup="calcProductCost()"
@@ -78,7 +78,7 @@
 								</v-col>
 								<v-col cols="6">
 									<vuetify-money
-										v-model="editedItem.unity_cost"
+										v-model="editedItem.cost"
 										label="Preço de Custo"
 										:options="options"
 										:disabled="true"
@@ -100,9 +100,9 @@
 										:disabled="true"
 									></vuetify-money>
 								</v-col>
-								
-								
-								
+
+
+
 								<v-col cols="12">
 									<v-textarea
 										v-model="editedItem.preparation"
@@ -139,7 +139,7 @@
 													<td>
 														<v-select
 														v-model="item.id_item"
-														:items="insumos"
+														:items="ingredientes"
 														label="Ingrediente"
 														item-text="item"
 														item-value="id"
@@ -230,13 +230,13 @@ export default {
 					text: 'PDV',
 					align: 'start',
 					sortable: true,
-					value: 'id',
+					value: 'pdv',
 				},
 				{
 					text: 'Nome',
 					align: 'start',
 					sortable: true,
-					value: 'name',
+					value: 'product',
 				},
 				{
 					text: 'Categoria',
@@ -254,17 +254,17 @@ export default {
 					text: 'Preço de custo',
 					align: 'start',
 					sortable: true,
-					value: 'costPrice',
+					value: 'cost',
 				},
 				{
 					text: 'Preço de venda',
 					align: 'start',
 					sortable: true,
-					value: 'sellPrice',
+					value: 'sell',
 				},
 				{
 					text: 'Ação',
-					value: 'action',
+					value: 'actions',
 					sortable: false,
 				},
 			],
@@ -272,37 +272,39 @@ export default {
 			loadingtbl: true,
 			loading: false,
 			dialog: false,
-			editedIngredients:[ 
+			editedIngredients:[
 				{
-				id: '',
+				id_input: null,
+				id_item: '',
 				ammount: 0,
 				measure: '',
 				cost: 0,
 				}
 			],
 			defaultIngredients: [{
-				id: '',
+				id_input: null,
+				id_item: '',
 				ammount: 0,
 				measure: '',
 				cost: 0,
 			}],
 			defaultItem: {
 				id: '',
-				name: '',
+				product: '',
 				category: '',
 				type: '',
-				unity_cost: '',
+				cost: '',
 				sugestedPrice: '',
-				sellPrice: '',
+				sell: '',
 				profit: '',
 			},
 			editedItem: {
 				id: '',
-				name: '',
+				product: '',
 				category: '',
 				type: '',
-				unity_cost: '',
-				sellPrice: '',
+				cost: '',
+				sell: '',
 				profit: '',
 				sugestedPrice: '',
 			},
@@ -321,16 +323,17 @@ export default {
                 precision: 2
             },
 			editedIndex: -1,
-		};	
+			ingredientes: []
+		};
 	},
 	computed: {
 		...mapGetters({
+			produtos: 'products/getProducts',
+			ingredientesProdutos: 'products/getIngredients',
 			medidas: 'products/recipes/getMeasures',
 			receitas: 'products/recipes/getRecipes',
-			ingredientes: 'products/recipes/getIngredients',
 			insumos: "products/inputs/getInputs",
-            categorias: "categories/getInputCategories",
-			
+            categorias: "categories/getProductCategories",
 		}),
 		formTitle() {
 			return this.editedIndex === -1
@@ -344,10 +347,11 @@ export default {
 		},
 	},
 	async created() {
-		await this.$store.dispatch('products/recipes/fetchRecipes');
 		await this.$store.dispatch('products/inputs/fetchInputs');
+		await this.$store.dispatch('products/fetchProducts');
+		await this.$store.dispatch('products/recipes/fetchRecipes');
+		this.ingredientes = [...this.receitas, ...this.insumos];
 		await this.$store.dispatch('categories/fetchCategories');
-
 		this.loadingtbl = false;
 	},
 	methods:{
@@ -355,21 +359,29 @@ export default {
 			this.dialog = true;
 		},
 		editProduct(item) {
-			this.editedIndex = this.receitas.indexOf(item);
+			this.editedIndex = this.produtos.indexOf(item);
 			this.editedItem = Object.assign({}, item);
-			this.editedIngredients = JSON.parse(JSON.stringify(this.ingredientes.filter(
+			const ingredients = JSON.parse(JSON.stringify(this.ingredientesProdutos.filter(
 				(ing) => ing.id_input === item.id
 			)));
-			this.editedIngredients = this.editedIngredients.map((ing) => {
-				const unityCost = this.insumos.find((input) => input.id === ing.id_item).unity_cost;
-				ing.cost = ing.ammount * unityCost;
-				return ing;
+			const idInput = this.editedIndex === -1 ? null : item.id;
+			this.editedIngredients = ingredients.map((ing) => {
+				const unityCost = this.ingredientes.find(input => input.id === ing.id_item).unity_cost;
+				const cost = ing.ammount * unityCost;
+				return {
+					id_input: idInput,
+					id_item: ing.id_item,
+					ammount: ing.ammount,
+					measure: ing.measure,
+					cost,
+				};
 			});
+			this.calcProductCost();
 			this.dialog = true;
 		},
 		deleteProduct(item) {
 			this.$swal({
-				title: `Excluir Produto ${item.item}?`,
+				title: `Excluir Produto ${item.product}?`,
 				text: 'Essa ação não poderá ser desfeita!',
 				icon: 'warning',
 				buttons: true,
@@ -380,7 +392,7 @@ export default {
 				showLoaderOnConfirm: true,
 				preConfirm: async () => {
 					const response = await this.$store.dispatch(
-						'products/recipes/deleteRecipe',
+						'products/deleteProduct',
 						item
 					);
 					this.icon = response.errors ? 'error' : 'success';
@@ -408,8 +420,8 @@ export default {
 		},
 		calcCost(index){
 			const item = Object.assign({}, this.editedIngredients[index]);
-			const input = this.insumos.find(input => input.id === item.id_item);
-			
+			const input = this.ingredientes.find(input => input.id === item.id_item);
+
 			item.cost = input.unity_cost * item.ammount;
 			item.measure = input.measure;
 			this.editedIngredients.splice(index, 1, item);
@@ -420,9 +432,9 @@ export default {
 			const cost = this.editedIngredients.reduce((acc, ing) => {
 				return acc + ing.cost;
 			}, 0);
-			this.editedItem.unity_cost = cost;
-			this.editedItem.sugestedPrice = cost * 1.5;
-			this.editedItem.profit = (1-(this.editedItem.unity_cost / this.editedItem.sellPrice)) * 100;
+			this.editedItem.cost = cost;
+			this.editedItem.sugestedPrice = cost * 3;
+			this.editedItem.profit = (1-(this.editedItem.cost / this.editedItem.sell)) * 100;
 		},
 		close() {
 			this.dialog = false;
@@ -439,12 +451,12 @@ export default {
 			recipe.ingredients = this.editedIngredients;
 			if (this.editedIndex > -1) {
 				response = await this.$store.dispatch(
-					`products/recipes/updateRecipe`,
+					`products/updateProduct`,
 					recipe
 				);
 			} else {
 				response = await this.$store.dispatch(
-					`products/recipes/addRecipe`,
+					`products/addProduct`,
 					recipe
 				);
 			}
