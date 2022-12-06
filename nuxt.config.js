@@ -5,6 +5,7 @@ import pt from 'vuetify/src/locale/pt';
 const API_URL = "https://deli-backe.herokuapp.com/api";
 const AUTH_URL = "https://deli-backe.herokuapp.com";
 export default {
+	ssr: false,
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		titleTemplate: '%s - Deli Menu',
