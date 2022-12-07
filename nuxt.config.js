@@ -1,9 +1,9 @@
 import colors from 'vuetify/es5/util/colors';
 import pt from 'vuetify/src/locale/pt';
-// const API_URL = "http://localhost:8000/api";
-// const AUTH_URL = "http://localhost:8000";
-const API_URL = "https://deli-backe.herokuapp.com/api";
-const AUTH_URL = "https://deli-backe.herokuapp.com";
+const API_URL = "http://localhost:8000/api";
+const AUTH_URL = "http://localhost:8000";
+// const API_URL = "https://deli-backe.herokuapp.com/api";
+// const AUTH_URL = "https://deli-backe.herokuapp.com";
 export default {
 	ssr: false,
 	// Global page headers: https://go.nuxtjs.dev/config-head
@@ -56,12 +56,19 @@ export default {
 		// Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
 		baseURL: API_URL || '/',
 		proxy: true,
+		credentials: true,
+		withCredentials: true,
 	},
 	env: {
-		apiUrl: API_URL || 'http://localhost:3000',
+		apiUrl: '/back/api',
 		authUrl: AUTH_URL || 'http://localhost:3000',
 	},
-	proxy: {},
+	proxy: {
+		'/back': {
+			target: AUTH_URL,
+			pathRewrite: { '^/back': '/' }
+		}
+	},
 	// PWA module configuration: https://go.nuxtjs.dev/pwa
 	pwa: {
 		manifest: {
@@ -99,8 +106,8 @@ export default {
 						url: '/api/logout',
 						method: 'post',
 					},
-					token: AUTH_URL+'/oauth/token',
-					user: { url: '/api/user', method: 'get' },
+					token: AUTH_URL + '/oauth/token',
+					user: {url: '/api/user', method: 'get'},
 					userInfo: '/api/user',
 				},
 				grantType: 'password',
@@ -108,7 +115,30 @@ export default {
 				clientId: '2',
 				clientSecret: 'UMAdy14FCE0Fk1jMSXnywxXqPeXdtXzENBaZ5RqZ',
 			},
-		},
+			laravelSanctum: {
+				provider: 'laravel/sanctum',
+				url: '/back',
+				endpoints: {
+					// (optional) If set, we send a get request to this endpoint before login
+					csrf: {
+						url: '/sanctum/csrf-cookie',
+					},
+					login: {
+						url: '/api/login',
+						method: 'post',
+					},
+					logout: {
+						url: '/api/logout',
+						method: 'post',
+					},
+					user: {
+						url: '/api/user',
+						method: 'get',
+					},
+
+				}
+			},
+		}
 	},
 	googleFonts: {
 		download: true,

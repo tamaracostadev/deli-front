@@ -52,9 +52,9 @@ export default {
 	methods: {
 		async logar() {
 			await this.$auth
-				.loginWith('laravelPassport', {
+				.loginWith('laravelSanctum', {
 					data: {
-						username: this.login,
+						email: this.login,
 						password: this.senha,
 					},
 				})
