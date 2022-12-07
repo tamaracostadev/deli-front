@@ -1,9 +1,9 @@
 import colors from 'vuetify/es5/util/colors';
 import pt from 'vuetify/src/locale/pt';
-const API_URL = "http://localhost:8000/api";
-const AUTH_URL = "http://localhost:8000";
-// const API_URL = "https://deli-backe.herokuapp.com/api";
-// const AUTH_URL = "https://deli-backe.herokuapp.com";
+//const API_URL = "http://localhost:8000/api";
+//const AUTH_URL = "http://localhost:8000";
+ const API_URL = "https://deli-backe.herokuapp.com/api";
+ const AUTH_URL = "https://deli-backe.herokuapp.com";
 export default {
 	ssr: false,
 	// Global page headers: https://go.nuxtjs.dev/config-head
