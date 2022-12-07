@@ -4,7 +4,7 @@ import pt from 'vuetify/src/locale/pt';
 //const AUTH_URL = "http://localhost:8000";
 const AUTH_URL = "https://deli-backe.herokuapp.com";
 export default {
-	ssr: false,
+	ssr: true,
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		titleTemplate: '%s - Deli Menu',
@@ -55,6 +55,7 @@ export default {
 		// Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
 		baseURL: '/',
 		proxy: true,
+		credentials: true,
 		withCredentials: true,
 	},
 	env: {
@@ -88,11 +89,11 @@ export default {
 				expires: 7,
 			},
 			cookie: {
-				name: 'CSRF-TOKEN',
+				name: 'XSRF-TOKEN',
 			},
 		},
 		strategies: {
-
+/*
 			laravelPassport: {
 				provider: 'laravel/passport',
 				endpoints: {
@@ -112,7 +113,7 @@ export default {
 				url: AUTH_URL,
 				clientId: '2',
 				clientSecret: 'UMAdy14FCE0Fk1jMSXnywxXqPeXdtXzENBaZ5RqZ',
-			},
+			}, */
 			laravelSanctum: {
 				provider: 'laravel/sanctum',
 				url: '/back',
