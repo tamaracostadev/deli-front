@@ -116,10 +116,6 @@ export default {
 			laravelSanctum: {
 				provider: 'laravel/sanctum',
 				url: '/back',
-				token: {
-					property: 'token',
-				},
-				tokenRequired: true,
 				endpoints: {
 					// (optional) If set, we send a get request to this endpoint before login
 					csrf: {
