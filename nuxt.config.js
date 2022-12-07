@@ -133,7 +133,6 @@ export default {
 						url: '/api/user',
 						method: 'get',
 					},
-					userInfo: '/api/user',
 
 				}
 			},
