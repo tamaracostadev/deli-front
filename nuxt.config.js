@@ -120,7 +120,6 @@ export default {
 					property: 'token',
 				},
 				tokenRequired: true,
-				tokenType: 'Bearer',
 				endpoints: {
 					// (optional) If set, we send a get request to this endpoint before login
 					csrf: {
