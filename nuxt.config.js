@@ -1,9 +1,8 @@
 import colors from 'vuetify/es5/util/colors';
 import pt from 'vuetify/src/locale/pt';
-//const API_URL = "http://localhost:8000/api";
+
 //const AUTH_URL = "http://localhost:8000";
- const API_URL = "https://deli-backe.herokuapp.com/api";
- const AUTH_URL = "https://deli-backe.herokuapp.com";
+const AUTH_URL = "https://deli-backe.herokuapp.com";
 export default {
 	ssr: false,
 	// Global page headers: https://go.nuxtjs.dev/config-head
@@ -54,9 +53,8 @@ export default {
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
 		// Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-		baseURL: API_URL || '/',
+		baseURL: '/',
 		proxy: true,
-		credentials: true,
 		withCredentials: true,
 	},
 	env: {
@@ -90,7 +88,7 @@ export default {
 				expires: 7,
 			},
 			cookie: {
-				name: 'XSRF-TOKEN',
+				name: 'CSRF-TOKEN',
 			},
 		},
 		strategies: {
