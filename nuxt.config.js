@@ -118,6 +118,7 @@ export default {
 				url: '/back',
 				token: {
 					property: 'token',
+					global: true,
 				},
 				tokenRequired: true,
 				tokenType: 'Bearer',
