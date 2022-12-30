@@ -106,7 +106,7 @@ export default {
 				grantType: 'password',
 				url: AUTH_URL,
 				clientId: '2',
-				clientSecret: 'UMAdy14FCE0Fk1jMSXnywxXqPeXdtXzENBaZ5RqZ',
+				clientSecret: 'LTJaineCEswEWgCI2WnNDNl3o1HuPG9b1y8mhpjI',
 			},
 		},
 	},
