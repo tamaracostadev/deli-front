@@ -309,9 +309,9 @@ export default {
 	},
 	methods: {
 		getSomas(){
-			this.somaCustoFixo = this.custoFixo.reduce((a, b) => a + b.cost, 0);
-			this.somaCustoVariavel = this.custoVariavel.reduce((a, b) => a + b.cost, 0);
-			this.somaVenda = this.pedidos.reduce((a, b) => a + b.sell, 0);
+			this.somaCustoFixo = this.custoFixo.reduce((a, b) => parseFloat(a) + b.cost, 0);
+			this.somaCustoVariavel = this.custoVariavel.reduce((a, b) => parseFloat(a)  + b.cost, 0);
+			this.somaVenda = this.pedidos.reduce((a, b) => parseFloat(a)  + b.sell, 0);
 			this.saldo = this.somaVenda - (this.somaCustoFixo + this.somaCustoVariavel);
 		},
 		editCategory(id, type) {
